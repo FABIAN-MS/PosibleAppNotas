@@ -17,7 +17,8 @@ data class Note(
     val title: String,          // Título de la nota
     val content: String,        // Contenido de la nota
     val fecha: Long = 0L,       // Fecha en formato timestamp
-    val hora: Long = 0L         // Hora en formato timestamp
+    val hora: Long = 0L,         // Hora en formato timestamp
+    val multimediaUris: List<String> = listOf() // Debe coincidir con NoteDetails
 )
 
 @Dao

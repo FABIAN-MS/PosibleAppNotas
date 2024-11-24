@@ -1,9 +1,11 @@
 // File: NotesScreen.kt
 package com.example.inventory.ui.notes
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -16,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.rememberAsyncImagePainter
 import com.example.inventory.R
 import com.example.inventory.data.Note
 import com.example.inventory.ui.AppViewModelProvider
@@ -78,7 +81,6 @@ private fun NoteItem(
     note: Note,
     onClick: () -> Unit
 ) {
-    // Formateadores de fecha y hora
     val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     val timeFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
 
@@ -96,7 +98,6 @@ private fun NoteItem(
             Spacer(modifier = Modifier.height(4.dp))
             Text(text = note.content, style = MaterialTheme.typography.bodyMedium)
             Spacer(modifier = Modifier.height(8.dp))
-            // Mostrar la fecha y hora formateadas
             Text(
                 text = "Fecha: ${dateFormatter.format(Date(note.fecha))}",
                 style = MaterialTheme.typography.bodySmall
@@ -105,6 +106,42 @@ private fun NoteItem(
                 text = "Hora: ${timeFormatter.format(Date(note.hora))}",
                 style = MaterialTheme.typography.bodySmall
             )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // Mostrar imágenes y audios
+            LazyRow(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(note.multimediaUris) { uri ->
+                    when {
+                        uri.endsWith(".jpg") || uri.endsWith(".png") -> {
+                            // Mostrar imagen
+                            Image(
+                                painter = rememberAsyncImagePainter(model = uri),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(100.dp)
+                                    .padding(4.dp)
+                            )
+                        }
+                        uri.endsWith(".mp3") || uri.endsWith(".wav") -> {
+                            // Mostrar botón para reproducir audio
+                            Button(
+                                onClick = { /* Lógica para reproducir audio */ },
+                                modifier = Modifier
+                                    .padding(4.dp)
+                            ) {
+                                Text("Reproducir")
+                            }
+                        }
+                        else -> {
+                            Text("Formato no soportado")
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -64,6 +64,7 @@ dependencies {
 
     // Room
     implementation("androidx.room:room-runtime:${rootProject.extra["room_version"]}")
+    implementation("com.google.firebase:firebase-crashlytics-buildtools:3.0.2")
     ksp("androidx.room:room-compiler:${rootProject.extra["room_version"]}")
     implementation("androidx.room:room-ktx:${rootProject.extra["room_version"]}")
 
@@ -72,6 +73,8 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
 
     implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation ("com.google.code.gson:gson:2.10.1")
+
 
 
 }

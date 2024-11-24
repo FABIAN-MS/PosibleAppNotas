@@ -18,7 +18,8 @@ fun NoteDetails.toNote(): Note = Note(
     title = title,
     content = content,
     fecha = fecha,
-    hora = hora
+    hora = hora,
+    multimediaUris = multimediaUris
 )
 
 fun Note.toNoteDetails(): NoteDetails = NoteDetails(
@@ -26,5 +27,6 @@ fun Note.toNoteDetails(): NoteDetails = NoteDetails(
     title = title,
     content = content,
     fecha = fecha,
-    hora = hora
+    hora = hora,
+    multimediaUris = multimediaUris
 )
